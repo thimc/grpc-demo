@@ -1,4 +1,4 @@
-# gPRC demo with bidirectional streaming
+# gRPC demo with bidirectional streaming
 
 Before getting started, please ensure that you have the following dependencies
 installed:
