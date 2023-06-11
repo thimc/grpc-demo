@@ -11,6 +11,8 @@ import (
 	"github.com/thimc/grpc-demo/proto"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type server struct {
@@ -18,9 +20,15 @@ type server struct {
 }
 
 func (s *server) SayHello(ctx context.Context, in *proto.HelloRequest) (*proto.HelloResponse, error) {
+	if in.GetGreeting() == "" {
+		return nil, status.Errorf(
+			codes.InvalidArgument,
+			"Greeting is empty",
+		)
+	}
 	log.Printf("Received %+v\n", in)
 	resp := &proto.HelloResponse{
-		Reply: "world ",
+		Reply: "world",
 	}
 	return resp, nil
 }
